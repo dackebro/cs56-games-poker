@@ -455,4 +455,35 @@ import org.junit.Test;
 
         assertEquals(1, comparingHands.compareHands());
     }
+    
+    /** Test three of a kind tie (player 1 having a higher hand) */
+    @Test
+    public void testThreeOfAKindTie() {
+        table = new TableCards(kingDiamond, tenDiamond, aceDiamond, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, aceSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(kingHeart, kingSpade);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(1, comparingHands.compareHands());
+    }
+    
+    /** Test straight flush tie (player 1 having a higher hand) */
+    @Test
+    public void testStraightFlushTie() {     
+        table = new TableCards(queenHeart, jackHeart, tenHeart, nineHeart, fourClub);
+        hand1 = new Hand(aceHeart, kingHeart);
+        player1 = new User(hand1);
+        hand2 = new Hand(sevenHeart, eightHeart);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(1, comparingHands.compareHands());
+    }
+    
+    @Test
+    public void printResults() {
+    		TestBench.AnalyzeCoverage();
+    }
 }
