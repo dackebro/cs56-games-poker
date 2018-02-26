@@ -153,7 +153,7 @@ class PokerSinglePlayer extends PokerGameGui {
             controlButtons();
         }
     }
-
+	
 	/**
 	* Method overridden to allow for a new single player game to start.
 	*/
