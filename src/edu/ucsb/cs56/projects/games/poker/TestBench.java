@@ -31,6 +31,7 @@ public class TestBench {
 		coverage.put("compareHands9", false);
 		coverage.put("compareHands10", false);
 		coverage.put("compareHands11", false);
+    
 		coverage.put("getMostCommonSuit1", false);
 		coverage.put("getMostCommonSuit2", false);
 		coverage.put("getMostCommonSuit3", false);
@@ -52,6 +53,10 @@ public class TestBench {
 		coverage.put("straightTie7", false);
 		coverage.put("straightTie8", false);
 		coverage.put("straightTie9", false);
+
+		for (int i = 0; i <= 13; i++) {
+			coverage.put("showWinnerAlert" + i, false);
+		}
 	}
 	
 	/**
@@ -62,7 +67,7 @@ public class TestBench {
 		Collection<Boolean> values = coverage.values();
 		int totalNumberOfBranches = values.size();
 		if(totalNumberOfBranches < 1) {
-			System.out.println("No branches have been registered, aborting...");
+			System.out.println("No branches have been registered, coverage ratio calculations skipped.");
 			return;
 		}
 		int traversedBranches = 0;
@@ -75,5 +80,16 @@ public class TestBench {
 		}
 		double res = ((double)traversedBranches / (double)totalNumberOfBranches)*100;
 		System.out.println("Total branch coverage is " + res + "%");
+	}
+	
+	/**
+	 * Flag branch @branchID as traversed.
+	 * @param branchID
+	 */
+	public static void BranchReached(String branchID) {
+		if(coverage == null) {
+			SetupCoverageTracking();
+		}
+		coverage.put(branchID, true);
 	}
 }
