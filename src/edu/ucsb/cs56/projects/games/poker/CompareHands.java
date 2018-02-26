@@ -780,10 +780,13 @@ TestBench.BranchReached("isFlush6");
         ArrayList<Integer> pairsHand2 = new ArrayList<Integer>();
 
         for (int i = 0; i < sortedHand1.size(); i++) {
+            TestBench.BranchReached("twoPairTie0");
             if ((Collections.frequency(sortedHand1, sortedHand1.get(i)) == 2) && (!pairsHand1.contains(sortedHand1.get(i)))) {
+                TestBench.BranchReached("twoPairTie1");
                 pairsHand1.add(sortedHand1.get(i));
             }
             if ((Collections.frequency(sortedHand2, sortedHand2.get(i)) == 2) && (!pairsHand2.contains(sortedHand2.get(i)))) {
+                TestBench.BranchReached("twoPairTie2");
                 pairsHand2.add(sortedHand2.get(i));
             }
         }
@@ -793,13 +796,17 @@ TestBench.BranchReached("isFlush6");
         int maxNumPairs = 2; // only want to compare two highest pairs from each hand
 
         while (maxNumPairs > 0) {
+            TestBench.BranchReached("twoPairTie3");
             if (pairsHand1.get(pairsHand1_index) > pairsHand2.get(pairsHand2_index)) {
+                TestBench.BranchReached("twoPairTie4");
                 return 1;
             }
             else if (pairsHand2.get(pairsHand2_index) > pairsHand1.get(pairsHand1_index)) {
+                TestBench.BranchReached("twoPairTie5");
                 return 0;
             }
             else {
+                TestBench.BranchReached("twoPairTie6");
                 pairsHand1_index--;
                 pairsHand2_index--;
             }
@@ -810,18 +817,25 @@ TestBench.BranchReached("isFlush6");
         int fifthCardHand2 = 0;
 
         for (int i = sortedHand1.size() - 1; i >= 0; i--) {
+            TestBench.BranchReached("twoPairTie7");
             if (!pairsHand1.contains(sortedHand1.get(i))) {
+                TestBench.BranchReached("twoPairTie8");
                 fifthCardHand1 = sortedHand1.get(i);
             }
             if (!pairsHand2.contains(sortedHand2.get(i))) {
+                TestBench.BranchReached("twoPairTie9");
                 fifthCardHand2 = sortedHand2.get(i);
             }
         }
 
-        if (fifthCardHand1 > fifthCardHand2)
+        if (fifthCardHand1 > fifthCardHand2) {
+            TestBench.BranchReached("twoPairTie10");
             return 1;
-        else if (fifthCardHand2 > fifthCardHand1)
+        } else if (fifthCardHand2 > fifthCardHand1) {
+            TestBench.BranchReached("twoPairTie11");
             return 0;
+        }
+        TestBench.BranchReached("twoPairTie12");
         return 2;
     }
 

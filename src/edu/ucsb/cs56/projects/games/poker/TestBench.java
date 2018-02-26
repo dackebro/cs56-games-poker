@@ -61,6 +61,10 @@ public class TestBench {
 		for (int i = 0; i <= 6; i++) {
 			coverage.put("isFlush" + i, false);
 		}
+                
+                for (int i = 0; i < 13; i++) {
+			coverage.put("twoPairTie" + i, false);
+		}
 	}
 	
 	/**
