@@ -294,7 +294,7 @@ public class CompareHands implements Serializable{
                 return true;
                 Collections.sort(hearts);
             for (i = 0; i < heartCounter-5; i++) {
-            if(spades.get(i)==(hearts.get(i+1)-1) && 
+            if(hearts.get(i)==(hearts.get(i+1)-1) && 
                hearts.get(i)==(hearts.get(i+2)-2) &&
                hearts.get(i)==(hearts.get(i+3)-3) &&
                hearts.get(i)==(hearts.get(i+4)-4))
