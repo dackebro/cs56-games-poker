@@ -10,7 +10,7 @@ import java.util.Iterator;
  */
 
 public class TestBench {
-	private static HashMap<String, Boolean> coverage;
+	public static HashMap<String, Boolean> coverage;
 	
 	/**
 	 * Initialize the data structure used for 
@@ -20,9 +20,33 @@ public class TestBench {
 	 */
 	public static void SetupCoverageTracking() {
 		coverage = new HashMap<String, Boolean>();
+
 		for(int i = 1; i <= 12; i++) {
 			coverage.put("compareHands" + i, false);
 		}
+    
+		coverage.put("getMostCommonSuit1", false);
+		coverage.put("getMostCommonSuit2", false);
+		coverage.put("getMostCommonSuit3", false);
+		coverage.put("getMostCommonSuit4", false);
+		coverage.put("getMostCommonSuit5", false);
+		coverage.put("getMostCommonSuit6", false);
+		coverage.put("getMostCommonSuit7", false);
+		coverage.put("getMostCommonSuit8", false);
+		coverage.put("getMostCommonSuit9", false);
+		coverage.put("getMostCommonSuit10", false);
+		coverage.put("getMostCommonSuit11", false);
+    
+		coverage.put("straightTie1", false);
+		coverage.put("straightTie2", false);
+		coverage.put("straightTie3", false);
+		coverage.put("straightTie4", false);
+		coverage.put("straightTie5", false);
+		coverage.put("straightTie6", false);
+		coverage.put("straightTie7", false);
+		coverage.put("straightTie8", false);
+		coverage.put("straightTie9", false);
+
 
 		for (int i = 0; i <= 13; i++) {
 			coverage.put("showWinnerAlert" + i, false);
