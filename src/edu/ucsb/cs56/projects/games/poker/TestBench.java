@@ -31,6 +31,7 @@ public class TestBench {
 		coverage.put("compareHands9", false);
 		coverage.put("compareHands10", false);
 		coverage.put("compareHands11", false);
+		coverage.put("compareHands12", false);
 	}
 	
 	/**
