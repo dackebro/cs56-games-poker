@@ -17,5 +17,14 @@ public class TestBench {
 		coverage.put("compareHands9", false);
 		coverage.put("compareHands10", false);
 		coverage.put("compareHands11", false);
+		coverage.put("straightTie1", false);
+		coverage.put("straightTie2", false);
+		coverage.put("straightTie3", false);
+		coverage.put("straightTie4", false);
+		coverage.put("straightTie5", false);
+		coverage.put("straightTie6", false);
+		coverage.put("straightTie7", false);
+		coverage.put("straightTie8", false);
+		coverage.put("straightTie9", false);
 	}
 }
