@@ -540,40 +540,54 @@ public class CompareHands implements Serializable{
      * @return char representing the suit
      */
     private char getMostCommonSuit(ArrayList<Card> hand) {
+    	TestBench.coverage.put("getMostCommonSuit1", true);
         int heartsCounter = 0;
         int diamondsCounter = 0;
         int spadesCounter = 0;
         int clubsCounter = 0;
 
         for (int i = 0; i < hand.size(); i++) {
+        	TestBench.coverage.put("getMostCommonSuit2", true);
             switch (hand.get(i).getSuit().charAt(0)) {
                 case 'H':
+                	TestBench.coverage.put("getMostCommonSuit3", true);
                     heartsCounter++;
                     break;
                 case 'D':
+                	TestBench.coverage.put("getMostCommonSuit4", true);
                     diamondsCounter++;
                     break;
                 case 'S':
+                	TestBench.coverage.put("getMostCommonSuit5", true);
                     spadesCounter++;
                     break;
                 case 'C':
+                	TestBench.coverage.put("getMostCommonSuit6", true);
                     clubsCounter++;
                     break;
+                default:
+                	TestBench.coverage.put("getMostCommonSuit7", true);
+                	break;
             }
         }
 
         int max_occurrences = Math.max(heartsCounter, Math.max(diamondsCounter, Math.max(spadesCounter, clubsCounter)));
 
         if (max_occurrences == heartsCounter) {
+        	TestBench.coverage.put("getMostCommonSuit8", true);
             return 'H';
         }
         else if (max_occurrences == diamondsCounter) {
+        	TestBench.coverage.put("getMostCommonSuit9", true);
             return 'D';
         }
         else if (max_occurrences == spadesCounter) {
+        	TestBench.coverage.put("getMostCommonSuit10", true);
             return 'S';
-        }
-        return 'C';
+        } else {
+        	TestBench.coverage.put("getMostCommonSuit11", true);
+        	return 'C';        	
+        }        
     }
 
     /**

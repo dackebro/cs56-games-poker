@@ -31,6 +31,17 @@ public class TestBench {
 		coverage.put("compareHands9", false);
 		coverage.put("compareHands10", false);
 		coverage.put("compareHands11", false);
+		coverage.put("getMostCommonSuit1", false);
+		coverage.put("getMostCommonSuit2", false);
+		coverage.put("getMostCommonSuit3", false);
+		coverage.put("getMostCommonSuit4", false);
+		coverage.put("getMostCommonSuit5", false);
+		coverage.put("getMostCommonSuit6", false);
+		coverage.put("getMostCommonSuit7", false);
+		coverage.put("getMostCommonSuit8", false);
+		coverage.put("getMostCommonSuit9", false);
+		coverage.put("getMostCommonSuit10", false);
+		coverage.put("getMostCommonSuit11", false);
 	}
 	
 	/**
