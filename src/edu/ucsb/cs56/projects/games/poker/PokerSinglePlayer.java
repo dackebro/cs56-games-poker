@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.HashSet;
 
-final class PokerSinglePlayer extends PokerGameGui {
+class PokerSinglePlayer extends PokerGameGui {
 
     /**
      * Timer for calling turnDecider()
@@ -153,16 +154,17 @@ final class PokerSinglePlayer extends PokerGameGui {
         }
     }
 
-
 	/**
 	* Method overridden to allow for a new single player game to start.
 	*/
 	public void showWinnerAlert() {
 		if(!gameOver){
+
 			String message = "";
 			oSubPane2.remove(backCardLabel1);
 			oSubPane2.remove(backCardLabel2);
 			for(int i=0;i<2;i++){
+
 				oSubPane2.add(new JLabel(getCardImage((opponent.getHand()).get(i))));
 			}
 			updateFrame();
@@ -170,20 +172,25 @@ final class PokerSinglePlayer extends PokerGameGui {
 			message = winningHandMessage();
 
 			if (winnerType == Winner.PLAYER) {
+
 				System.out.println("player");
 				message = message + ("\n\nYou win!\n\nNext round?");
 			} else if (winnerType == Winner.OPPONENT) {
+
 				System.out.println("opponent");
 				message = message + ("\n\nOpponent wins.\n\nNext round?");
 			} else if (winnerType == Winner.TIE){
+
 				System.out.println("tie");
 				message = message + ("\n\nTie \n\nNext round?");
+			} else {
+
 			}
 
-			int option = JOptionPane.showConfirmDialog(null, message, "Winner",
-				JOptionPane.YES_NO_OPTION);
+			int option = showWinnerConfirmDialog(message);
 
 			if (option == JOptionPane.YES_OPTION) {
+
 				// Restart
 				mainFrame.dispose();
 				PokerSinglePlayer singlePlayerReplay;
@@ -191,25 +198,37 @@ final class PokerSinglePlayer extends PokerGameGui {
 				// Check if players have enough chips.
 				// Create new game.
 				if(player.getChips() < 5 || opponent.getChips() < 5){
+
 					JOptionPane.showMessageDialog(null, "Resetting chips...");
 					singlePlayerReplay = new PokerSinglePlayer();
 					singlePlayerReplay.go();
-				}
-				else {
+				} else {
+
 					singlePlayerReplay = new PokerSinglePlayer(player.getChips(),opponent.getChips());
 					singlePlayerReplay.go();
 				}
-
 			} else if (option == JOptionPane.NO_OPTION) {
+
 				if(player.getChips() < 5 || opponent.getChips() < 5) {
+
 					gameOver("GAME OVER! No chips left!");
+				} else {
+
 				}
 				gameOver("GAME OVER! Thanks for playing.\n\n");
 			} else {
+
 				// Quit
 				System.exit(1);
 			}
+		} else {
+
 		}
+	}
+
+	public int showWinnerConfirmDialog(String message) {
+		return JOptionPane.showConfirmDialog(null, message, "Winner",
+				JOptionPane.YES_NO_OPTION);
 	}
 
     /**
