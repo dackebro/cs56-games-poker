@@ -20,18 +20,13 @@ public class TestBench {
 	 */
 	public static void SetupCoverageTracking() {
 		coverage = new HashMap<String, Boolean>();
-		coverage.put("compareHands1", false);
-		coverage.put("compareHands2", false);
-		coverage.put("compareHands3", false);
-		coverage.put("compareHands4", false);
-		coverage.put("compareHands5", false);
-		coverage.put("compareHands6", false);
-		coverage.put("compareHands7", false);
-		coverage.put("compareHands8", false);
-		coverage.put("compareHands9", false);
-		coverage.put("compareHands10", false);
-		coverage.put("compareHands11", false);
-		coverage.put("compareHands12", false);
+		for(int i = 1; i <= 12; i++) {
+			coverage.put("compareHands" + i, false);
+		}
+
+		for (int i = 0; i <= 13; i++) {
+			coverage.put("showWinnerAlert" + i, false);
+		}
 	}
 	
 	/**
