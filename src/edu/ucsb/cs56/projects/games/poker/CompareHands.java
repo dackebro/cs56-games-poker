@@ -539,7 +539,7 @@ public class CompareHands implements Serializable{
      * Returns suit occurring the most in a hand
      * @return char representing the suit
      */
-    private char getMostCommonSuit(ArrayList<Card> hand) {
+    char getMostCommonSuit(ArrayList<Card> hand) {
     	TestBench.coverage.put("getMostCommonSuit1", true);
         int heartsCounter = 0;
         int diamondsCounter = 0;
