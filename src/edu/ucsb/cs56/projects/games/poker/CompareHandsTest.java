@@ -3,8 +3,10 @@ package edu.ucsb.cs56.projects.games.poker;
 import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
-
+import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 
 /**
  * Test class for CompareHands, to test if winning hands are judged correctly
@@ -15,6 +17,10 @@ import org.junit.Test;
  */
  
  public class CompareHandsTest{
+	 
+	@Rule 
+	public TestName name = new TestName();
+
 	Card twoDiamond = new Card(2,"D"); 
 	Card twoHeart = new Card(2,"H");
 	Card twoClub = new Card(2,"C"); 
@@ -586,11 +592,6 @@ import org.junit.Test;
         assertEquals(1, comparingHands.compareHands());
     }
     
-    @Test
-    public void printResults() {
-    		TestBench.AnalyzeCoverage();
-    }
-   
    @Test
    public void testGetMostCommonSuitClubs() {
     	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
@@ -707,4 +708,10 @@ import org.junit.Test;
     		
     		assertEquals("Mix", comparingHands.calculateValueToString(cards));
     }
+    
+    @After
+    public void after() throws Exception {
+    		System.out.println("After running test: " + name.getMethodName());
+    		TestBench.AnalyzeCoverage();
+    }    
 }
