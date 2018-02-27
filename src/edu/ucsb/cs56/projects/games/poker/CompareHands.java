@@ -335,85 +335,108 @@ public class CompareHands implements Serializable{
             return false;
         }
 
-        /**
-           Returns boolean for if the hand is a full house.
-           * @param player the cards belonging to the player
-           * @return boolean
-        */
-        private boolean isFullHouse(ArrayList<Card> player) {
-        ArrayList<Integer> sortedHand=sortHand(player);
-        int doubleCounter=0;
-        int tripleCounter=0;
-        for(int i=0;i<player.size()-1;i++) {
-            if(sortedHand.get(i)==sortedHand.get(i+1)) {
-            if(tripleCounter==1) {
-                sortedHand.remove(i+1);
-                sortedHand.remove(i);
-                tripleCounter++;
-                break;
-            }
-            else {
-                if(i==1)
-                tripleCounter=0;
-                else
-                tripleCounter++;
-            }
-            }
-            else
-            tripleCounter=0;
-        }
+    /**
+       Returns boolean for if the hand is a full house.
+       * @param player the cards belonging to the player
+       * @return boolean
+    */
+	private boolean isFullHouse(ArrayList<Card> player) {
+		ArrayList<Integer> sortedHand = sortHand(player);
+		int doubleCounter = 0;
+		int tripleCounter = 0;
+		for (int i = 0; i < player.size() - 1; i++) {
+			// branch 1
+			TestBench.BranchReached("isFullHouse1");
+			if (sortedHand.get(i) == sortedHand.get(i + 1)) {
+				// branch 2
+				TestBench.BranchReached("isFullHouse2");
+				if (tripleCounter == 1) {
+					// branch 3
+					TestBench.BranchReached("isFullHouse4");
+					sortedHand.remove(i + 1);
+					sortedHand.remove(i);
+					tripleCounter++;
+					break;
+				} else {
+					TestBench.BranchReached("isFullHouse5");
+					if (i == 1) {
+						// branch 4
+						TestBench.BranchReached("isFullHouse6");
+						tripleCounter = 0;
+					} else {
+						TestBench.BranchReached("isFullHouse7");
+						tripleCounter++;
+					}
+				}
+			} else {
+				TestBench.BranchReached("isFullHouse8");
+				tripleCounter = 0;
+			}
+		}
+		if (tripleCounter == 2) {
+			// branch 5
+			TestBench.BranchReached("isFullHouse9");
+			sortedHand.trimToSize();
+			int size = sortedHand.size();
+			for (int i = 0; i < (size - 1); i++) {
+				// branch 6
+				TestBench.BranchReached("isFullHouse10");
+				if (sortedHand.get(i) == sortedHand.get(i + 1)) {
+					// branch 7
+					TestBench.BranchReached("isFullHouse11");
+					doubleCounter++;
+				}
+			}
+		} else {
+			TestBench.BranchReached("isFullHouse12");
+			return false;
+		}
 
-        if(tripleCounter==2) {
-            sortedHand.trimToSize();
-            int size=sortedHand.size();
-            for(int i=0;i<(size-1);i++) {
-            if(sortedHand.get(i)==sortedHand.get(i+1))
-                doubleCounter++;
-            }
-        }
-        else
-            return false;
-        if(doubleCounter>=1)
-            return true;
-        else
-            return false;
-    }
+		if (doubleCounter >= 1) {
+			// branch 8
+			TestBench.BranchReached("isFullHouse13");
+			return true;
+		} else {
+			TestBench.BranchReached("isFullHouse14");
+			return false;
+		}
+	}
 
     /**
        Returns boolean for if the hand is a flush.
        * @param player the cards belonging to the player
        * @return boolean
     */
-    private boolean isFlush(ArrayList<Card> player) {
-        int spadeCounter=0;
-        int cloverCounter=0;
-        int heartCounter=0;
-        int diamondCounter=0;
+	private boolean isFlush(ArrayList<Card> player) {
+		int spadeCounter = 0;
+		int cloverCounter = 0;
+		int heartCounter = 0;
+		int diamondCounter = 0;
 
-        for (Card c: player) {
-TestBench.BranchReached("isFlush0");
-            if(c.getSuit()=="S") {
-TestBench.BranchReached("isFlush1");
-            	spadeCounter++;
-            } else if(c.getSuit()=="C") {
-TestBench.BranchReached("isFlush2");
-            	cloverCounter++;
-            } else if(c.getSuit()=="D") {
-TestBench.BranchReached("isFlush3");
-            	diamondCounter++;
-            } else {
-TestBench.BranchReached("isFlush4");
-            	heartCounter++;
-            }
-        }
-        if(spadeCounter>=5 || cloverCounter>=5 || diamondCounter>=5 || heartCounter>=5) {
-TestBench.BranchReached("isFlush5");
-            return true;
-        } else {
-TestBench.BranchReached("isFlush6");
-            return false;
-        }
-    }
+		for (Card c : player) {
+			TestBench.BranchReached("isFlush0");
+			if (c.getSuit() == "S") {
+				TestBench.BranchReached("isFlush1");
+				spadeCounter++;
+			} else if (c.getSuit() == "C") {
+				TestBench.BranchReached("isFlush2");
+				cloverCounter++;
+			} else if (c.getSuit() == "D") {
+				TestBench.BranchReached("isFlush3");
+				diamondCounter++;
+			} else {
+				TestBench.BranchReached("isFlush4");
+				heartCounter++;
+			}
+		}
+		if (spadeCounter >= 5 || cloverCounter >= 5 || diamondCounter >= 5 || heartCounter >= 5) {
+			TestBench.BranchReached("isFlush5");
+			return true;
+		} else {
+			TestBench.BranchReached("isFlush6");
+			return false;
+		}
+	}
 
     /**
        Returns boolean for if the hand is a straight.
