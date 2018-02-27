@@ -14,9 +14,9 @@ public class PokerGameGuiTest extends PokerGameGui {
         }
 	
         /** test that only valid strings can be used to place bets*/
-	@Test
-	public void testValidBets() {
-	    PokerGameGuiTest pg = new PokerGameGuiTest();
+        @Test
+        public void testValidBets() {
+        	PokerGameGuiTest pg = new PokerGameGuiTest();
             pg.layoutSubViews();
             
             pg.betTextField.setEnabled(true);
@@ -30,13 +30,6 @@ public class PokerGameGuiTest extends PokerGameGui {
             pg.betButton.setEnabled(true);
             pg.betButton.doClick();
             assertEquals("Enter a valid bet!", pg.prompt);
-            
-            pg.betTextField.setEnabled(true);
-            pg.betTextField.setText("Test");
-            pg.betButton.setEnabled(true);
-            pg.betButton.doClick();
-            assertEquals("Enter a valid bet!", pg.prompt);
-             
 	}
         
         /** Test that a player can successfully place bets*/
