@@ -59,6 +59,10 @@ public class TestBench {
 		for(int i = 1; i <= 9; i++) {
 			coverage.put("calculateValue" + i, false);
 		}
+		
+		for (int i = 1; i <= 14; i++) {
+			coverage.put("isFullHouse" + i, false);
+		}
 	}
 	
 	/**
