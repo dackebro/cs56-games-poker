@@ -840,12 +840,12 @@ public class CompareHands implements Serializable{
         
         for (int i = sortedHand1.size() - 1; i >= 0; i--) {
 
-            if (!pairsHand1.contains(sortedHand1.get(i))) {
+            if (!pairsHand1.contains(sortedHand1.get(i)) && !first1) {
 
                 fifthCardHand1 = sortedHand1.get(i);
                 first1 = true;
             }
-            if (!pairsHand2.contains(sortedHand2.get(i))) {
+            if (!pairsHand2.contains(sortedHand2.get(i)) && !first2) {
 
                 fifthCardHand2 = sortedHand2.get(i);
                 first2 = true;
