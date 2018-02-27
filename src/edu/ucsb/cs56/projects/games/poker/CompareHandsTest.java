@@ -503,6 +503,40 @@ import org.junit.Test;
     	cards.add(jackClub);
     	assertEquals(comparingHands.getMostCommonSuit(cards), 'C');
     }
+   
+   @Test
+   public void testGetMostCommonSuitSpades() {
+    	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, twoSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(nineHeart, jackDiamond);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+    	ArrayList<Card> cards = new ArrayList<Card>();
+    	cards.add(aceSpade);
+    	cards.add(kingSpade);
+    	cards.add(queenSpade);
+    	cards.add(jackSpade);
+    	assertEquals(comparingHands.getMostCommonSuit(cards), 'S');
+    }
+   
+   @Test
+   public void testGetMostCommonSuitDiamonds() {
+    	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, twoSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(nineHeart, jackDiamond);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+    	ArrayList<Card> cards = new ArrayList<Card>();
+    	cards.add(aceDiamond);
+    	cards.add(kingDiamond);
+    	cards.add(queenDiamond);
+    	cards.add(jackDiamond);
+    	assertEquals(comparingHands.getMostCommonSuit(cards), 'D');
+    }
 
     /*
      * Tests that straightTie() can successfully conclude that two straights
