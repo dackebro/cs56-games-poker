@@ -30,8 +30,6 @@ public class PokerGameGuiTest extends PokerGameGui {
             pg.betButton.setEnabled(true);
             pg.betButton.doClick();
             assertEquals("Enter a valid bet!", pg.prompt);
-            
-             
 	}
         
         /** Test that a player can successfully place bets*/
