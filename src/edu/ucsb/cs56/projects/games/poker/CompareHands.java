@@ -795,8 +795,8 @@ TestBench.BranchReached("isFlush6");
             }
         }
 
-        int pairsHand1_index = pairsHand1.size() - 1;
-        int pairsHand2_index = pairsHand2.size() - 1;
+        int pairsHand1_index = pairsHand1.size() -1;
+        int pairsHand2_index = pairsHand2.size() -1;
         int maxNumPairs = 2; // only want to compare two highest pairs from each hand
 
         while (maxNumPairs > 0) { 
@@ -812,27 +812,27 @@ TestBench.BranchReached("isFlush6");
             else {
                 pairsHand1_index--;
                 pairsHand2_index--;
+                maxNumPairs--;
             }
         }
 
         // if both pairs are the same, check the fifth card in each hand
         int fifthCardHand1 = 0;
         int fifthCardHand2 = 0;
-
-        for (int i = sortedHand1.size() - 1; i >= 0; i--) { 
-            // branch 7
-            if (!pairsHand1.contains(sortedHand1.get(i))) { 
-                // branch 8
+        boolean first1 = false;
+        boolean first2 = false;
+        
+        for (int i = sortedHand1.size() - 1; i >= 0; i--) {
+            if (!pairsHand1.contains(sortedHand1.get(i)) && !first1) {
                 fifthCardHand1 = sortedHand1.get(i);
+                first1 = true;
             }
-            if (!pairsHand2.contains(sortedHand2.get(i))) { 
-                // branch 9
+            if (!pairsHand2.contains(sortedHand2.get(i)) && !first2) {
                 fifthCardHand2 = sortedHand2.get(i);
+                first2 = true;
             }
         }
-
-        if (fifthCardHand1 > fifthCardHand2) 
-            // branch 10
+        if (fifthCardHand1 > fifthCardHand2)
             return 1;
         else if (fifthCardHand2 > fifthCardHand1)
             // branch 11
