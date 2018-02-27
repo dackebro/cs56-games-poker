@@ -520,11 +520,14 @@ public class PokerGameGui extends PokerGame{
         public void actionPerformed(ActionEvent e) {
             String inputText = betTextField.getText();
             if (!inputText.equals("")) {
+                TestBench.BranchReached("betButtonHandler0");
                 bet = Integer.parseInt(inputText);
                 if (bet<=0) {
+                    TestBench.BranchReached("betButtonHandler1");
                     prompt = "Enter a valid bet!";
                 }
                 else if ((player.getChips() - bet >= 0) && (opponent.getChips() - bet >= 0)) {
+                    TestBench.BranchReached("betButtonHandler2");
                     pot += bet;
                     player.bet(bet);
                     prompt = "Player bets " + bet + ".";
@@ -532,9 +535,11 @@ public class PokerGameGui extends PokerGame{
                     checkPassTurnUpdate();
                 }
                 else if (((turn == Turn.PLAYER) && (player.getChips() < bet)) || ((turn == Turn.OPPONENT) && (opponent.getChips() < bet))) {
+                    TestBench.BranchReached("betButtonHandler3");
                     prompt = "Not enough chips!";
                 }
                 else {
+                    TestBench.BranchReached("betButtonHandler4");
                     allIn = true;
                     allInBet();
                     updateBetGUIElements();
@@ -543,6 +548,7 @@ public class PokerGameGui extends PokerGame{
                 updateFrame();
             }
             else {
+                TestBench.BranchReached("betButtonHandler5");
                 prompt = "Enter a number of chips to bet!";
                 updateFrame();
             }

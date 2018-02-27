@@ -283,7 +283,59 @@ import org.junit.Test;
 		
 		assertEquals(1, comparingHands.compareHands());
 	 }
-
+         
+         /** test case of two pair of K's and 2's loses a two pair of K's and Q's.*/
+         @Test
+         public void testTwoPairTieEqualBestPair() {
+                table = new TableCards(kingSpade, queenDiamond, threeHeart, twoClub, jackClub);
+		hand1 = new Hand(kingDiamond, twoSpade);
+		player1 = new User(hand1);
+		hand2 = new Hand(kingHeart, queenSpade);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+		
+		assertEquals(0, comparingHands.compareHands());
+         }
+         
+         /** test case when kicker decides when the two pair is equal, player one wins*/
+         @Test
+         public void testTwoPairKickerP1() {
+        	 	table = new TableCards(threeSpade, sevenDiamond, jackHeart, tenClub, threeClub);
+        	 	hand1 = new Hand(kingDiamond, sevenSpade);
+        	 	player1 = new User(hand1);
+        	 	hand2 = new Hand(sevenHeart, queenSpade);
+        	 	player2 = new User(hand2);
+        	 	comparingHands = new CompareHands(player1, player2, table);
+		
+        	 	assertEquals(1, comparingHands.compareHands());
+         }
+         
+          /** test case when kicker decides when the two pair is equal, player two wins*/
+         @Test
+         public void testTwoPairKickerP2() {
+                table = new TableCards(eightSpade, jackDiamond, threeHeart, nineClub, jackClub);
+		hand1 = new Hand(eightDiamond, twoSpade);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenDiamond, eightHeart);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+		
+		assertEquals(0, comparingHands.compareHands());
+         }
+         
+         /** test two pair tie when the outcome should result in a split pot*/
+         @Test
+         public void testEqualTwoPairTie() {
+                table = new TableCards(fiveSpade, twoDiamond, tenHeart, twoClub, jackClub);
+		hand1 = new Hand(kingDiamond, tenSpade);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenDiamond, kingSpade);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+		
+		assertEquals(2, comparingHands.compareHands());
+         }
+         
 	 /** test case where players have the same hand */
 	 @Test
 	 public void testTie(){
@@ -429,7 +481,7 @@ import org.junit.Test;
 
         assertEquals(1, comparingHands.compareHands());
     }
-
+   
     /** Test pair wins against lower pair */
     @Test
     public void pairBeatsPair() {
@@ -455,12 +507,92 @@ import org.junit.Test;
 
         assertEquals(1, comparingHands.compareHands());
     }
-    
-    /**
-     * Tests that getMostCommonSuit() recognises if diamond is the most common suite of the hand.
-     */
+
+    /** Test both players have same pair and it is a tie */
     @Test
-    public void testGetMostCommonSuitDiamond() {
+    public void testPairTieTie() {
+    		table = new TableCards(sevenClub, tenDiamond, fiveHeart, eightDiamond, fourClub);
+        hand1 = new Hand(twoClub, twoSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(twoHeart, twoDiamond);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(2, comparingHands.compareHands());
+    }
+    
+    /** Test both players have a pair and opponent wins */
+    @Test
+    public void testPairTieOpponentWins() {
+    		table = new TableCards(sevenClub, tenDiamond, fiveHeart, eightDiamond, fourClub);
+        hand1 = new Hand(twoClub, twoSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(threeHeart, threeDiamond);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(0, comparingHands.compareHands());
+    }
+    
+    /** Test both players have a tie pair and opponent wins with high card */
+    @Test
+    public void testPairTieOpponentHighCard() {
+    		table = new TableCards(sevenClub, tenDiamond, fourHeart, twoDiamond, jackClub);
+        hand1 = new Hand(twoClub, threeHeart);
+        player1 = new User(hand1);
+        hand2 = new Hand(twoSpade, aceDiamond);
+        player2 = new User(hand2);
+        
+        comparingHands = new CompareHands(player1, player2, table);
+        assertEquals(0, comparingHands.compareHands());
+    }
+    
+    /** Test both players have a tie pair and player wins with high card */
+    @Test
+    public void testPairTiePlayerHighCard() {
+    		table = new TableCards(sevenClub, tenDiamond, fourHeart, twoDiamond, jackClub);
+        hand1 = new Hand(twoSpade, aceDiamond);
+        player1 = new User(hand1);
+        hand2 = new Hand(twoClub, threeHeart);
+        player2 = new User(hand2);
+        
+        comparingHands = new CompareHands(player1, player2, table);
+        assertEquals(1, comparingHands.compareHands());
+    }
+   
+    /** Test three of a kind tie (player 1 having a higher hand) */
+    @Test
+    public void testThreeOfAKindTie() {
+        table = new TableCards(kingDiamond, tenDiamond, aceDiamond, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, aceSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(kingHeart, kingSpade);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(1, comparingHands.compareHands());
+    }
+    
+    /** Test straight flush tie (player 1 having a higher hand) */
+    @Test
+    public void testStraightFlushTie() {     
+        table = new TableCards(queenHeart, jackHeart, tenHeart, nineHeart, fourClub);
+        hand1 = new Hand(aceHeart, kingHeart);
+        player1 = new User(hand1);
+        hand2 = new Hand(sevenHeart, eightHeart);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+        assertEquals(1, comparingHands.compareHands());
+    }
+    
+    @Test
+    public void printResults() {
+    		TestBench.AnalyzeCoverage();
+    }
+   
+   @Test
+   public void testGetMostCommonSuitClubs() {
     	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
         hand1 = new Hand(aceHeart, twoSpade);
         player1 = new User(hand1);
@@ -469,18 +601,15 @@ import org.junit.Test;
         comparingHands = new CompareHands(player1, player2, table);
         
     	ArrayList<Card> cards = new ArrayList<Card>();
-    	cards.add(aceDiamond);
-    	cards.add(kingDiamond);
-    	cards.add(queenDiamond);
-    	cards.add(jackDiamond);
-    	assertEquals(comparingHands.getMostCommonSuit(cards), 'D');
+    	cards.add(aceClub);
+    	cards.add(kingClub);
+    	cards.add(queenClub);
+    	cards.add(jackClub);
+    	assertEquals(comparingHands.getMostCommonSuit(cards), 'C');
     }
-    
-    /**
-     * Tests that getMostCommonSuit() recognises if spades is the most common suite of the hand.
-     */
-    @Test
-    public void testGetMostCommonSuitSpades() {
+   
+   @Test
+   public void testGetMostCommonSuitSpades() {
     	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
         hand1 = new Hand(aceHeart, twoSpade);
         player1 = new User(hand1);
@@ -495,12 +624,9 @@ import org.junit.Test;
     	cards.add(jackSpade);
     	assertEquals(comparingHands.getMostCommonSuit(cards), 'S');
     }
-    
-    /**
-     * Tests that getMostCommonSuit() recognises if clubs is the most common suite of the hand.
-     */
-    @Test
-    public void testGetMostCommonSuitClubs() {
+   
+   @Test
+   public void testGetMostCommonSuitDiamonds() {
     	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
         hand1 = new Hand(aceHeart, twoSpade);
         player1 = new User(hand1);
@@ -509,11 +635,11 @@ import org.junit.Test;
         comparingHands = new CompareHands(player1, player2, table);
         
     	ArrayList<Card> cards = new ArrayList<Card>();
-    	cards.add(aceClub);
-    	cards.add(kingClub);
-    	cards.add(queenClub);
-    	cards.add(jackClub);
-    	assertEquals(comparingHands.getMostCommonSuit(cards), 'C');
+    	cards.add(aceDiamond);
+    	cards.add(kingDiamond);
+    	cards.add(queenDiamond);
+    	cards.add(jackDiamond);
+    	assertEquals(comparingHands.getMostCommonSuit(cards), 'D');
     }
 
     /*
@@ -530,5 +656,55 @@ import org.junit.Test;
         comparingHands = new CompareHands(player1, player2, table);
         
         assertEquals(2, comparingHands.straightTie());
+    }
+    
+    /*
+     * Tests that calculateValueToString() returns "Four of a Kind" 
+     * given a correct hand with four-of-a-kind.
+     */
+    @Test
+    public void testCalculateValueToStringFourOfAKind() {
+    		// ---- Dummy players & table to expose method
+		table = new TableCards(twoSpade,twoHeart,eightHeart,nineDiamond,jackHeart);
+		hand1 = new Hand(twoDiamond, eightClub);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenHeart, fiveHeart);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+    		// ----
+		
+    		ArrayList<Card> cards = new ArrayList<Card>();
+    		cards.add(kingHeart);
+    		cards.add(kingDiamond);
+    		cards.add(kingClub);
+    		cards.add(kingSpade);
+    		cards.add(fourClub);
+    		
+    		assertEquals("Four of a Kind", comparingHands.calculateValueToString(cards));
+    }
+    
+    /*
+     * Tests that calculateValueToString() returns "Mix" 
+     * given a hand with mixed cards. 
+     */
+    @Test
+    public void testCalculateValueToStringMix() {
+    		// ---- Dummy players & table to expose method
+		table = new TableCards(twoSpade,twoHeart,eightHeart,nineDiamond,jackHeart);
+		hand1 = new Hand(twoDiamond, eightClub);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenHeart, fiveHeart);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+    		// ----
+		
+    		ArrayList<Card> cards = new ArrayList<Card>();
+    		cards.add(kingHeart);
+    		cards.add(queenDiamond);
+    		cards.add(fiveClub);
+    		cards.add(threeSpade);
+    		cards.add(fourClub);
+    		
+    		assertEquals("Mix", comparingHands.calculateValueToString(cards));
     }
 }

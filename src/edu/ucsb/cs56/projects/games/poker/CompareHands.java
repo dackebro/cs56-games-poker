@@ -60,42 +60,54 @@ public class CompareHands implements Serializable{
         player1Value = calculateValue(cardHand1);
         player2Value = calculateValue(cardHand2);
 
-        if(player1Value>player2Value)
+        if(player1Value>player2Value) {
+        		TestBench.BranchReached("compareHands1");
             return 1;
-        else if(player1Value<player2Value)
+        }else if(player1Value<player2Value){
+        		TestBench.BranchReached("compareHands2");
             return 0;
-        else {
+        }else {
             // player1Value and player2Value are equal (same general hand)
             switch (player1Value) {
                 case 8:
                     // straight flush
+            			TestBench.BranchReached("compareHands3");
                     return straightFlushTie();
                 case 7:
                     // four of a kind
+                		TestBench.BranchReached("compareHands4");
                     return fourOfAKindTie();
                 case 6:
                     // full house
+                		TestBench.BranchReached("compareHands5");
                     return fullHouseTie();
                 case 5:
                     // flush
+                		TestBench.BranchReached("compareHands6");
                     return flushTie();
                 case 4:
                     // straight
-                    return straightTie();
+                		TestBench.BranchReached("compareHands7");
+                		return straightTie();
                 case 3:
                     // three of a kind
+            			TestBench.BranchReached("compareHands8");
                     return threeOfAKindTie();
                 case 2:
                     // two pair
+                		TestBench.BranchReached("compareHands9");
                     return twoPairTie();
                 case 1:
                     // pair
+                		TestBench.BranchReached("compareHands10");
                     return pairTie();
                 case 0:
                     // high card
+                		TestBench.BranchReached("compareHands11");
                     return highCardTie();
                 default:
                     // should never happen
+                		TestBench.BranchReached("compareHands12");
                     return 2;
             }
         }
@@ -139,25 +151,36 @@ public class CompareHands implements Serializable{
      */
 
     public int calculateValue(ArrayList<Card> player) {
-        if(isStraightFlush(player))
+        if(isStraightFlush(player)) {
+        		TestBench.BranchReached("calculateValue1");
             return 8;
-        else if(isFourOfAKind(player))
+        }else if(isFourOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue2");	
             return 7;
-        else if(isFullHouse(player))
+        }else if(isFullHouse(player)) {
+        		TestBench.BranchReached("calculateValue3");	
             return 6;
-        else if(isFlush(player))
-            return 5;
-        else if(isStraight(player))
+        }else if(isFlush(player)) {
+        		TestBench.BranchReached("calculateValue4");
+        		return 5;
+        }else if(isStraight(player)) {
+        		TestBench.BranchReached("calculateValue5");
             return 4;
-        else if(isThreeOfAKind(player))
+        }else if(isThreeOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue6");
             return 3;
-        else if(isTwoPair(player))
+        }else if(isTwoPair(player)) {
+        		TestBench.BranchReached("calculateValue7");
             return 2;
-        else if(isOnePair(player))
+        }else if(isOnePair(player)) {
+        		TestBench.BranchReached("calculateValue8");
             return 1;
-        else
+        } else {
+        		TestBench.BranchReached("calculateValue9");
             return 0;
+        }
     }
+
 
    /**
     * Method that explicitly names the player's hand.
@@ -249,66 +272,47 @@ public class CompareHands implements Serializable{
         removeDuplicates(clubs);
         removeDuplicates(diamonds);
         removeDuplicates(hearts);
-
-        if(spadeCounter>=5){
-            Collections.sort(spades);
-            if (spades.get(spades.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(spades))
-                return true;
-            for (i = 0; i < spadeCounter-5; i++) {
-            if(spades.get(i)==(spades.get(i+1)-1) &&
-               spades.get(i)==(spades.get(i+2)-2) &&
-               spades.get(i)==(spades.get(i+3)-3) &&
-               spades.get(i)==(spades.get(i+4)-4))
-                straightFlushCounter=4;
-            }
+        
+        if(spadeCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(spades, spadeCounter);
+        } else if (clubsCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(clubs, clubsCounter);
+        } else if (heartCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(hearts, heartCounter);
+        } else if (diamondCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(diamonds, diamondCounter);
+        } else {
+        	return false;
         }
-        else if(clubsCounter>=5){
-            Collections.sort(clubs);
-            if (clubs.get(clubs.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(clubs))
-                return true;
-            for (i = 0; i < clubsCounter-5; i++) {
-            if(clubs.get(i)==(clubs.get(i+1)-1) &&
-               clubs.get(i)==(clubs.get(i+2)-2) &&
-               clubs.get(i)==(clubs.get(i+3)-3) &&
-               clubs.get(i)==(clubs.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else if(heartCounter>=5){
-            if (hearts.get(hearts.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(hearts))
-                return true;
-                Collections.sort(hearts);
-            for (i = 0; i < heartCounter-5; i++) {
-            if(spades.get(i)==(hearts.get(i+1)-1) &&
-               hearts.get(i)==(hearts.get(i+2)-2) &&
-               hearts.get(i)==(hearts.get(i+3)-3) &&
-               hearts.get(i)==(hearts.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else if(diamondCounter>=5){
-            if (diamonds.get(diamonds.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(diamonds))
-                return true;
-                    Collections.sort(diamonds);
-            for (i = 0; i < diamondCounter-5; i++) {
-            if(diamonds.get(i)==(diamonds.get(i+1)-1) &&
-               diamonds.get(i)==(diamonds.get(i+2)-2) &&
-               diamonds.get(i)==(diamonds.get(i+3)-3) &&
-               diamonds.get(i)==(diamonds.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else
-            return false;
 
         if(straightFlushCounter==4)
             return true;
         else
             return false;
+    }
+    
+    /**
+     * Function that computes if a suit of cards containing suitCounter cards contains
+     * a straight flush.
+     * @param suit the suit of cards being tested: e.g. hearts or spades
+     * @param suitCounter the number of cards in this particular suit
+     * @return 4 if the suit contains a straight flush, 0 if it doesn't
+     */
+    int straightFlushCounter(ArrayList<Integer> suit, int suitCounter) {
+    	Collections.sort(suit);
+    	if (suit.get(suit.size()-1) == 14) {
+    		if (isLowestRankingStraight(suit)) {
+    			return 4;
+    		}
+    	}
+    	for(int i = 0; i < suitCounter-5; i++) {
+    		if (suit.get(i) == (suit.get(i+1)-1) && 
+    			suit.get(i) == (suit.get(i+2)-2) &&
+    			suit.get(i) == (suit.get(i+3)-3) &&
+				suit.get(i) == (suit.get(i+4)-4)) {
+					return 4;
+				}
+    	} return 0;
     }
 
     /**
@@ -710,22 +714,22 @@ TestBench.BranchReached("isFlush6");
         int straightEndIndex1 = 0;
         int straightEndIndex2 = 0;
 
-        for (int i = 0; i < sortedHand1.size() - 4; i++) {
+        for (int i = 0; i < sortedHand1.size() - 4; i++) { //CCN++
         	TestBench.coverage.put("straightTie2", true);
-            if(sortedHand1.get(i)==(sortedHand1.get(i + 1) - 1) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 2) - 2) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 3) - 3) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 4) - 4))
+            if(sortedHand1.get(i)==(sortedHand1.get(i + 1) - 1) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 2) - 2) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 3) - 3) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 4) - 4))   //CCN++
                 {
             	TestBench.coverage.put("straightTie3", true);
                 straightEndIndex1 = i + 4;
                 } else {
                 	TestBench.coverage.put("straightTie4", true);
                 }
-            if(sortedHand2.get(i)==(sortedHand2.get(i + 1) - 1) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 2) - 2) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 3) - 3) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 4) - 4))
+            if(sortedHand2.get(i)==(sortedHand2.get(i + 1) - 1) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 2) - 2) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 3) - 3) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 4) - 4))   //CCN++
                 {
             	TestBench.coverage.put("straightTie5", true);
                 straightEndIndex2 = i + 4;
@@ -734,18 +738,18 @@ TestBench.BranchReached("isFlush6");
                 }
         }
 
-        if (sortedHand1.get(straightEndIndex1) > sortedHand2.get(straightEndIndex2)) {
+        if (sortedHand1.get(straightEndIndex1) > sortedHand2.get(straightEndIndex2)) {         //CCN++
         	TestBench.coverage.put("straightTie7", true);
-            return 1;
-        } else if (sortedHand2.get(straightEndIndex2) > sortedHand2.get(straightEndIndex2)) {
+            return 1;																		   //CCN--
+        } else if (sortedHand2.get(straightEndIndex2) > sortedHand2.get(straightEndIndex2)) {  //CCN++
         	TestBench.coverage.put("straightTie8", true);
-            return 0;
+            return 0;																		   //CCN--
         } else {
         	TestBench.coverage.put("straightTie9", true);
-        	return 2;        	
+        	return 2;        																   //CCN--
         }
-        
-    }
+    //CCN = CCN + 2  
+    } //CCN = 11 - 3 + 2 = 10 (According to lecture notes, not Lizard)
 
     /**
      * Determines the better hand of two three of a kinds
@@ -791,8 +795,8 @@ TestBench.BranchReached("isFlush6");
             }
         }
 
-        int pairsHand1_index = pairsHand1.size() - 1;
-        int pairsHand2_index = pairsHand2.size() - 1;
+        int pairsHand1_index = pairsHand1.size() -1;
+        int pairsHand2_index = pairsHand2.size() -1;
         int maxNumPairs = 2; // only want to compare two highest pairs from each hand
 
         while (maxNumPairs > 0) {
@@ -809,22 +813,27 @@ TestBench.BranchReached("isFlush6");
                 TestBench.BranchReached("twoPairTie6");
                 pairsHand1_index--;
                 pairsHand2_index--;
+                maxNumPairs--;
             }
         }
 
         // if both pairs are the same, check the fifth card in each hand
         int fifthCardHand1 = 0;
         int fifthCardHand2 = 0;
-
+        boolean first1 = false;
+        boolean first2 = false;
+        
         for (int i = sortedHand1.size() - 1; i >= 0; i--) {
             TestBench.BranchReached("twoPairTie7");
             if (!pairsHand1.contains(sortedHand1.get(i))) {
                 TestBench.BranchReached("twoPairTie8");
                 fifthCardHand1 = sortedHand1.get(i);
+                first1 = true;
             }
             if (!pairsHand2.contains(sortedHand2.get(i))) {
                 TestBench.BranchReached("twoPairTie9");
                 fifthCardHand2 = sortedHand2.get(i);
+                first2 = true;
             }
         }
 
@@ -849,20 +858,31 @@ TestBench.BranchReached("isFlush6");
         int pair1 = 0;
         int pair2 = 0;
 
-        for (int i = sortedHand1.size() - 1; i >= 0; i--) {
-            if ((Collections.frequency(sortedHand1, sortedHand1.get(i)) == 2) && (pair1 == 0)) {
+        for (int i = sortedHand1.size() - 1; i >= 0; i--) { 
+            // branch 1
+            TestBench.BranchReached("pairTie1");
+            if ((Collections.frequency(sortedHand1, sortedHand1.get(i)) == 2) && (pair1 == 0)) { 
+                // branch 2
+                TestBench.BranchReached("pairTie2");
                 pair1 = sortedHand1.get(i);
             }
-            if ((Collections.frequency(sortedHand2, sortedHand2.get(i)) == 2) && (pair2 == 0)) {
+            if ((Collections.frequency(sortedHand2, sortedHand2.get(i)) == 2) && (pair2 == 0)) { 
+                // branch 3
+                TestBench.BranchReached("pairTie3");
                 pair2 = sortedHand2.get(i);
             }
         }
 
-        if (pair1 > pair2)
+        if (pair1 > pair2) {
+            // branch 4
+            TestBench.BranchReached("pairTie4");
             return 1;
-        else if (pair2 > pair1)
+        } else if (pair2 > pair1) {
+            // branch 5
+            TestBench.BranchReached("pairTie5");
             return 0;
-
+        }
+        
         sortedHand1.remove(new Integer(pair1));
         sortedHand1.remove(new Integer(pair1));
         sortedHand2.remove(new Integer(pair2));
@@ -872,11 +892,17 @@ TestBench.BranchReached("isFlush6");
         int hand2_index = sortedHand2.size() - 1;
         int cardsExamined = 0;
 
-        while ((hand1_index >= 0) && (hand2_index >= 0) && (cardsExamined < 3)) {
-            if (sortedHand1.get(hand1_index) > sortedHand2.get(hand2_index)) {
+        while ((hand1_index >= 0) && (hand2_index >= 0) && (cardsExamined < 3)) { 
+            // branch 6
+            TestBench.BranchReached("pairTie6");
+            if (sortedHand1.get(hand1_index) > sortedHand2.get(hand2_index)) { 
+                // branch 7
+                TestBench.BranchReached("pairTie7");
                 return 1;
             }
-            else if (sortedHand2.get(hand2_index) > sortedHand1.get(hand1_index)) {
+            else if (sortedHand2.get(hand2_index) > sortedHand1.get(hand1_index)) { 
+                // branch 8
+                TestBench.BranchReached("pairTie8");
                 return 0;
             }
             else {
@@ -885,7 +911,6 @@ TestBench.BranchReached("isFlush6");
                 cardsExamined++;
             }
         }
-
         return 2;
     }
 

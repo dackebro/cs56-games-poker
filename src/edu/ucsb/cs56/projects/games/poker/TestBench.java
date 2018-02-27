@@ -2,6 +2,7 @@ package edu.ucsb.cs56.projects.games.poker;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+
 /**
  * This class holds all data structures and functions
  * relating to our DIY branch coverage tracker
@@ -11,9 +12,9 @@ import java.util.Iterator;
 
 public class TestBench {
 	public static HashMap<String, Boolean> coverage;
-	
+  
 	/**
-	 * Initialize the data structure used for 
+	 * Initialize the data structure used for
 	 * DIY branch coverage. All branches needs
 	 * to be registered here as false to provide
 	 * correct ratio in AnalyzeCoverage
@@ -31,6 +32,13 @@ public class TestBench {
 		coverage.put("compareHands9", false);
 		coverage.put("compareHands10", false);
 		coverage.put("compareHands11", false);
+                String branch = "pairTie";
+                for (int i = 1; i < 9; i++) {
+                    coverage.put(branch+i, false);
+                }
+		for(int i = 1; i <= 12; i++) {
+			coverage.put("compareHands" + i, false);
+		}
     
 		coverage.put("getMostCommonSuit1", false);
 		coverage.put("getMostCommonSuit2", false);
@@ -54,22 +62,22 @@ public class TestBench {
 		coverage.put("straightTie8", false);
 		coverage.put("straightTie9", false);
 
+
 		for (int i = 0; i <= 13; i++) {
 			coverage.put("showWinnerAlert" + i, false);
 		}
 
 		for (int i = 0; i <= 6; i++) {
 			coverage.put("isFlush" + i, false);
-		}
-                
+		}                
                 for (int i = 0; i < 13; i++) {
 			coverage.put("twoPairTie" + i, false);
 		}
 	}
-	
+
 	/**
-	 * Iterate through registered branches 
-	 * and calculate ratio of traversed branches. 
+	 * Iterate through registered branches
+	 * and calculate ratio of traversed branches.
 	 */
 	public static void AnalyzeCoverage() {
 		Collection<Boolean> values = coverage.values();
@@ -89,7 +97,7 @@ public class TestBench {
 		double res = ((double)traversedBranches / (double)totalNumberOfBranches)*100;
 		System.out.println("Total branch coverage is " + res + "%");
 	}
-	
+
 	/**
 	 * Flag branch @branchID as traversed.
 	 * @param branchID
