@@ -486,7 +486,25 @@ import org.junit.Test;
     public void printResults() {
     		TestBench.AnalyzeCoverage();
     }
-    /**
+   
+   @Test
+   public void testGetMostCommonSuitClubs() {
+    	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, twoSpade);
+        player1 = new User(hand1);
+        hand2 = new Hand(nineHeart, jackDiamond);
+        player2 = new User(hand2);
+        comparingHands = new CompareHands(player1, player2, table);
+        
+    	ArrayList<Card> cards = new ArrayList<Card>();
+    	cards.add(aceClub);
+    	cards.add(kingClub);
+    	cards.add(queenClub);
+    	cards.add(jackClub);
+    	assertEquals(comparingHands.getMostCommonSuit(cards), 'C');
+    }
+
+    /*
      * Tests that straightTie() can successfully conclude that two straights
      * are tied when they're the same. 
      */

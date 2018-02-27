@@ -151,25 +151,36 @@ public class CompareHands implements Serializable{
      */
 
     public int calculateValue(ArrayList<Card> player) {
-        if(isStraightFlush(player))
+        if(isStraightFlush(player)) {
+        		TestBench.BranchReached("calculateValue1");
             return 8;
-        else if(isFourOfAKind(player))
+        }else if(isFourOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue2");	
             return 7;
-        else if(isFullHouse(player))
+        }else if(isFullHouse(player)) {
+        		TestBench.BranchReached("calculateValue3");	
             return 6;
-        else if(isFlush(player))
-            return 5;
-        else if(isStraight(player))
+        }else if(isFlush(player)) {
+        		TestBench.BranchReached("calculateValue4");
+        		return 5;
+        }else if(isStraight(player)) {
+        		TestBench.BranchReached("calculateValue5");
             return 4;
-        else if(isThreeOfAKind(player))
+        }else if(isThreeOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue6");
             return 3;
-        else if(isTwoPair(player))
+        }else if(isTwoPair(player)) {
+        		TestBench.BranchReached("calculateValue7");
             return 2;
-        else if(isOnePair(player))
+        }else if(isOnePair(player)) {
+        		TestBench.BranchReached("calculateValue8");
             return 1;
-        else
+        } else {
+        		TestBench.BranchReached("calculateValue9");
             return 0;
+        }
     }
+
 
    /**
     * Method that explicitly names the player's hand.
@@ -398,21 +409,30 @@ public class CompareHands implements Serializable{
         int cloverCounter=0;
         int heartCounter=0;
         int diamondCounter=0;
-        for(Card c: player){
-            if(c.getSuit()=="S")
-            spadeCounter++;
-            else if(c.getSuit()=="C")
-            cloverCounter++;
-            else if(c.getSuit()=="D")
-            diamondCounter++;
-            else
-            heartCounter++;
+
+        for (Card c: player) {
+TestBench.BranchReached("isFlush0");
+            if(c.getSuit()=="S") {
+TestBench.BranchReached("isFlush1");
+            	spadeCounter++;
+            } else if(c.getSuit()=="C") {
+TestBench.BranchReached("isFlush2");
+            	cloverCounter++;
+            } else if(c.getSuit()=="D") {
+TestBench.BranchReached("isFlush3");
+            	diamondCounter++;
+            } else {
+TestBench.BranchReached("isFlush4");
+            	heartCounter++;
+            }
         }
-        if(spadeCounter>=5 || cloverCounter>=5 || diamondCounter>=5
-           || heartCounter>=5)
+        if(spadeCounter>=5 || cloverCounter>=5 || diamondCounter>=5 || heartCounter>=5) {
+TestBench.BranchReached("isFlush5");
             return true;
-        else
+        } else {
+TestBench.BranchReached("isFlush6");
             return false;
+        }
     }
 
     /**
