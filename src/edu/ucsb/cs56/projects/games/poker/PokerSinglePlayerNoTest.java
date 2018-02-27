@@ -71,7 +71,7 @@ public class PokerSinglePlayerNoTest extends PokerSinglePlayer {
 
 		// Reconnect stdout to its original streams
 	    System.setOut(new PrintStream(new FileOutputStream(FileDescriptor.out)));
-		TestBench.AnalyzeCoverage();
+
 	}
 
 }
