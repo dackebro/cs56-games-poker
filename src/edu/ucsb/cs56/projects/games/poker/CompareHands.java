@@ -60,42 +60,54 @@ public class CompareHands implements Serializable{
         player1Value = calculateValue(cardHand1);
         player2Value = calculateValue(cardHand2);
 
-        if(player1Value>player2Value)
+        if(player1Value>player2Value) {
+        		TestBench.BranchReached("compareHands1");
             return 1;
-        else if(player1Value<player2Value)
+        }else if(player1Value<player2Value){
+        		TestBench.BranchReached("compareHands2");
             return 0;
-        else {
+        }else {
             // player1Value and player2Value are equal (same general hand)
             switch (player1Value) {
                 case 8:
                     // straight flush
+            			TestBench.BranchReached("compareHands3");
                     return straightFlushTie();
                 case 7:
                     // four of a kind
+                		TestBench.BranchReached("compareHands4");
                     return fourOfAKindTie();
                 case 6:
                     // full house
+                		TestBench.BranchReached("compareHands5");
                     return fullHouseTie();
                 case 5:
                     // flush
+                		TestBench.BranchReached("compareHands6");
                     return flushTie();
                 case 4:
                     // straight
-                    return straightTie();
+                		TestBench.BranchReached("compareHands7");
+                		return straightTie();
                 case 3:
                     // three of a kind
+            			TestBench.BranchReached("compareHands8");
                     return threeOfAKindTie();
                 case 2:
                     // two pair
+                		TestBench.BranchReached("compareHands9");
                     return twoPairTie();
                 case 1:
                     // pair
+                		TestBench.BranchReached("compareHands10");
                     return pairTie();
                 case 0:
                     // high card
+                		TestBench.BranchReached("compareHands11");
                     return highCardTie();
                 default:
                     // should never happen
+                		TestBench.BranchReached("compareHands12");
                     return 2;
             }
         }
@@ -293,7 +305,8 @@ public class CompareHands implements Serializable{
                 return true;
                 Collections.sort(hearts);
             for (i = 0; i < heartCounter-5; i++) {
-            if(spades.get(i)==(hearts.get(i+1)-1) &&
+            	
+            if(hearts.get(i)==(hearts.get(i+1)-1) && 
                hearts.get(i)==(hearts.get(i+2)-2) &&
                hearts.get(i)==(hearts.get(i+3)-3) &&
                hearts.get(i)==(hearts.get(i+4)-4))

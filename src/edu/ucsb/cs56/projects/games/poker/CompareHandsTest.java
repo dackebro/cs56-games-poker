@@ -456,51 +456,39 @@ import org.junit.Test;
         assertEquals(1, comparingHands.compareHands());
     }
     
-    /**
-     * Tests that getMostCommonSuit() recognises if diamond is the most common suite of the hand.
-     */
+    /** Test three of a kind tie (player 1 having a higher hand) */
     @Test
-    public void testGetMostCommonSuitDiamond() {
-    	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
-        hand1 = new Hand(aceHeart, twoSpade);
+    public void testThreeOfAKindTie() {
+        table = new TableCards(kingDiamond, tenDiamond, aceDiamond, sixDiamond, fourClub);
+        hand1 = new Hand(aceHeart, aceSpade);
         player1 = new User(hand1);
-        hand2 = new Hand(nineHeart, jackDiamond);
+        hand2 = new Hand(kingHeart, kingSpade);
         player2 = new User(hand2);
         comparingHands = new CompareHands(player1, player2, table);
         
-    	ArrayList<Card> cards = new ArrayList<Card>();
-    	cards.add(aceDiamond);
-    	cards.add(kingDiamond);
-    	cards.add(queenDiamond);
-    	cards.add(jackDiamond);
-    	assertEquals(comparingHands.getMostCommonSuit(cards), 'D');
+        assertEquals(1, comparingHands.compareHands());
     }
     
-    /**
-     * Tests that getMostCommonSuit() recognises if spades is the most common suite of the hand.
-     */
+    /** Test straight flush tie (player 1 having a higher hand) */
     @Test
-    public void testGetMostCommonSuitSpades() {
-    	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
-        hand1 = new Hand(aceHeart, twoSpade);
+    public void testStraightFlushTie() {     
+        table = new TableCards(queenHeart, jackHeart, tenHeart, nineHeart, fourClub);
+        hand1 = new Hand(aceHeart, kingHeart);
         player1 = new User(hand1);
-        hand2 = new Hand(nineHeart, jackDiamond);
+        hand2 = new Hand(sevenHeart, eightHeart);
         player2 = new User(hand2);
         comparingHands = new CompareHands(player1, player2, table);
         
-    	ArrayList<Card> cards = new ArrayList<Card>();
-    	cards.add(aceSpade);
-    	cards.add(kingSpade);
-    	cards.add(queenSpade);
-    	cards.add(jackSpade);
-    	assertEquals(comparingHands.getMostCommonSuit(cards), 'S');
+        assertEquals(1, comparingHands.compareHands());
     }
     
-    /**
-     * Tests that getMostCommonSuit() recognises if clubs is the most common suite of the hand.
-     */
     @Test
-    public void testGetMostCommonSuitClubs() {
+    public void printResults() {
+    		TestBench.AnalyzeCoverage();
+    }
+   
+   @Test
+   public void testGetMostCommonSuitClubs() {
     	table = new TableCards(sevenClub, tenDiamond, threeHeart, sixDiamond, fourClub);
         hand1 = new Hand(aceHeart, twoSpade);
         player1 = new User(hand1);

@@ -20,17 +20,10 @@ public class TestBench {
 	 */
 	public static void SetupCoverageTracking() {
 		coverage = new HashMap<String, Boolean>();
-		coverage.put("compareHands1", false);
-		coverage.put("compareHands2", false);
-		coverage.put("compareHands3", false);
-		coverage.put("compareHands4", false);
-		coverage.put("compareHands5", false);
-		coverage.put("compareHands6", false);
-		coverage.put("compareHands7", false);
-		coverage.put("compareHands8", false);
-		coverage.put("compareHands9", false);
-		coverage.put("compareHands10", false);
-		coverage.put("compareHands11", false);
+
+		for(int i = 1; i <= 12; i++) {
+			coverage.put("compareHands" + i, false);
+		}
     
 		coverage.put("getMostCommonSuit1", false);
 		coverage.put("getMostCommonSuit2", false);
@@ -53,6 +46,7 @@ public class TestBench {
 		coverage.put("straightTie7", false);
 		coverage.put("straightTie8", false);
 		coverage.put("straightTie9", false);
+
 
 		for (int i = 0; i <= 13; i++) {
 			coverage.put("showWinnerAlert" + i, false);
