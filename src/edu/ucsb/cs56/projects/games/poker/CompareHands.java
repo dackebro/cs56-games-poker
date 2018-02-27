@@ -272,67 +272,47 @@ public class CompareHands implements Serializable{
         removeDuplicates(clubs);
         removeDuplicates(diamonds);
         removeDuplicates(hearts);
-
-        if(spadeCounter>=5){
-            Collections.sort(spades);
-            if (spades.get(spades.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(spades))
-                return true;
-            for (i = 0; i < spadeCounter-5; i++) {
-            if(spades.get(i)==(spades.get(i+1)-1) &&
-               spades.get(i)==(spades.get(i+2)-2) &&
-               spades.get(i)==(spades.get(i+3)-3) &&
-               spades.get(i)==(spades.get(i+4)-4))
-                straightFlushCounter=4;
-            }
+        
+        if(spadeCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(spades, spadeCounter);
+        } else if (clubsCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(clubs, clubsCounter);
+        } else if (heartCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(hearts, heartCounter);
+        } else if (diamondCounter >= 5) {
+        	straightFlushCounter = straightFlushCounter(diamonds, diamondCounter);
+        } else {
+        	return false;
         }
-        else if(clubsCounter>=5){
-            Collections.sort(clubs);
-            if (clubs.get(clubs.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(clubs))
-                return true;
-            for (i = 0; i < clubsCounter-5; i++) {
-            if(clubs.get(i)==(clubs.get(i+1)-1) &&
-               clubs.get(i)==(clubs.get(i+2)-2) &&
-               clubs.get(i)==(clubs.get(i+3)-3) &&
-               clubs.get(i)==(clubs.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else if(heartCounter>=5){
-            if (hearts.get(hearts.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(hearts))
-                return true;
-                Collections.sort(hearts);
-            for (i = 0; i < heartCounter-5; i++) {
-            	
-            if(hearts.get(i)==(hearts.get(i+1)-1) && 
-               hearts.get(i)==(hearts.get(i+2)-2) &&
-               hearts.get(i)==(hearts.get(i+3)-3) &&
-               hearts.get(i)==(hearts.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else if(diamondCounter>=5){
-            if (diamonds.get(diamonds.size()-1 ) == 14) //if the top value is an ace, use the method below
-            if (isLowestRankingStraight(diamonds))
-                return true;
-                    Collections.sort(diamonds);
-            for (i = 0; i < diamondCounter-5; i++) {
-            if(diamonds.get(i)==(diamonds.get(i+1)-1) &&
-               diamonds.get(i)==(diamonds.get(i+2)-2) &&
-               diamonds.get(i)==(diamonds.get(i+3)-3) &&
-               diamonds.get(i)==(diamonds.get(i+4)-4))
-                straightFlushCounter=4;
-            }
-        }
-        else
-            return false;
 
         if(straightFlushCounter==4)
             return true;
         else
             return false;
+    }
+    
+    /**
+     * Function that computes if a suit of cards containing suitCounter cards contains
+     * a straight flush.
+     * @param suit the suit of cards being tested: e.g. hearts or spades
+     * @param suitCounter the number of cards in this particular suit
+     * @return 4 if the suit contains a straight flush, 0 if it doesn't
+     */
+    int straightFlushCounter(ArrayList<Integer> suit, int suitCounter) {
+    	Collections.sort(suit);
+    	if (suit.get(suit.size()-1) == 14) {
+    		if (isLowestRankingStraight(suit)) {
+    			return 4;
+    		}
+    	}
+    	for(int i = 0; i < suitCounter-5; i++) {
+    		if (suit.get(i) == (suit.get(i+1)-1) && 
+    			suit.get(i) == (suit.get(i+2)-2) &&
+    			suit.get(i) == (suit.get(i+3)-3) &&
+				suit.get(i) == (suit.get(i+4)-4)) {
+					return 4;
+				}
+    	} return 0;
     }
 
     /**
@@ -734,22 +714,22 @@ TestBench.BranchReached("isFlush6");
         int straightEndIndex1 = 0;
         int straightEndIndex2 = 0;
 
-        for (int i = 0; i < sortedHand1.size() - 4; i++) {
+        for (int i = 0; i < sortedHand1.size() - 4; i++) { //CCN++
         	TestBench.coverage.put("straightTie2", true);
-            if(sortedHand1.get(i)==(sortedHand1.get(i + 1) - 1) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 2) - 2) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 3) - 3) &&
-               sortedHand1.get(i)==(sortedHand1.get(i + 4) - 4))
+            if(sortedHand1.get(i)==(sortedHand1.get(i + 1) - 1) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 2) - 2) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 3) - 3) && //CCN++
+               sortedHand1.get(i)==(sortedHand1.get(i + 4) - 4))   //CCN++
                 {
             	TestBench.coverage.put("straightTie3", true);
                 straightEndIndex1 = i + 4;
                 } else {
                 	TestBench.coverage.put("straightTie4", true);
                 }
-            if(sortedHand2.get(i)==(sortedHand2.get(i + 1) - 1) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 2) - 2) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 3) - 3) &&
-               sortedHand2.get(i)==(sortedHand2.get(i + 4) - 4))
+            if(sortedHand2.get(i)==(sortedHand2.get(i + 1) - 1) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 2) - 2) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 3) - 3) && //CCN++
+               sortedHand2.get(i)==(sortedHand2.get(i + 4) - 4))   //CCN++
                 {
             	TestBench.coverage.put("straightTie5", true);
                 straightEndIndex2 = i + 4;
@@ -758,18 +738,18 @@ TestBench.BranchReached("isFlush6");
                 }
         }
 
-        if (sortedHand1.get(straightEndIndex1) > sortedHand2.get(straightEndIndex2)) {
+        if (sortedHand1.get(straightEndIndex1) > sortedHand2.get(straightEndIndex2)) {         //CCN++
         	TestBench.coverage.put("straightTie7", true);
-            return 1;
-        } else if (sortedHand2.get(straightEndIndex2) > sortedHand2.get(straightEndIndex2)) {
+            return 1;																		   //CCN--
+        } else if (sortedHand2.get(straightEndIndex2) > sortedHand2.get(straightEndIndex2)) {  //CCN++
         	TestBench.coverage.put("straightTie8", true);
-            return 0;
+            return 0;																		   //CCN--
         } else {
         	TestBench.coverage.put("straightTie9", true);
-        	return 2;        	
+        	return 2;        																   //CCN--
         }
-        
-    }
+    //CCN = CCN + 2  
+    } //CCN = 11 - 3 + 2 = 10 (According to lecture notes, not Lizard)
 
     /**
      * Determines the better hand of two three of a kinds
