@@ -585,11 +585,6 @@ import org.junit.Test;
         
         assertEquals(1, comparingHands.compareHands());
     }
-    
-    @Test
-    public void printResults() {
-    		TestBench.AnalyzeCoverage();
-    }
    
    @Test
    public void testGetMostCommonSuitClubs() {
