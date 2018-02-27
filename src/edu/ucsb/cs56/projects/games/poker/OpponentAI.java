@@ -30,37 +30,15 @@ public class OpponentAI extends Player implements Serializable {
      * GUI and game based on the user's input
      */
     public void takeTurn() {
-        boolean shouldBet = false;
-        boolean shouldCall = true;
+        boolean shouldBet;
+        boolean shouldCall;
         int dValue = 0;
         int betAmount = 5 * dValue;
         int bet = delegate.getCurrentBet();
-
-        if (delegate.getStep() == PokerGame.Step.BLIND) {
-            if (dValue >= 1) {
-                shouldBet = true;
-            }
-        } else if (delegate.getStep() == PokerGame.Step.FLOP) {
-            if (dValue >= 3) {
-                shouldBet = true;
-            }
-            if ((dValue == 0 && delegate.getCurrentBet() >= 20)) {
-                shouldCall = false;
-            }
-        } else if (delegate.getStep() == PokerGame.Step.TURN) {
-            if (dValue >= 4) {
-                shouldBet = true;
-            }
-            if ((dValue < 2 && delegate.getCurrentBet() > 20)) {
-                shouldCall = false;
-            }
-        } else if (delegate.getStep() == PokerGame.Step.RIVER) {
-            if (dValue >= 4) {
-                shouldBet = true;
-            }
-            if ((dValue < 2 && bet > 20))
-                shouldCall = false;
-        }
+        
+        boolean[] should = betOrCall(dValue, bet);
+        shouldBet = should[0];
+        shouldCall = should[1];
 
         if (delegate.isResponding()) {
             if (shouldCall) {
@@ -102,5 +80,39 @@ public class OpponentAI extends Player implements Serializable {
             delegate.updateFrame();
             delegate.changeTurn();
         }
+    }
+    
+    /**
+     * Decides if the AI should call, bet or neither
+     */
+    public boolean[] betOrCall(int dValue, int bet) {
+    	boolean[] should = new boolean[2];
+    	should[1] = true;
+    	
+    	if (delegate.getStep() == PokerGame.Step.BLIND) {
+            if (dValue >= 1) {
+            	should[0] = true;
+            }
+        } else if (delegate.getStep() == PokerGame.Step.FLOP) {
+            if (dValue >= 3) {
+                should[0] = true;
+            }
+            if ((dValue == 0 && delegate.getCurrentBet() >= 20)) {
+                should[1] = false;
+            }
+        } else if (delegate.getStep() == PokerGame.Step.TURN) {
+            if (dValue >= 4) {
+                should[0] = true;
+            }
+            if ((dValue < 2 && delegate.getCurrentBet() > 20)) {
+                should[1] = false;
+            }
+        } else if (delegate.getStep() == PokerGame.Step.RIVER) {
+            if (dValue >= 4) {
+                should[0] = true;
+            }
+            if ((dValue < 2 && bet > 20))
+            	should[1] = false;
+        } return should;
     }
 }
