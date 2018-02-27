@@ -344,14 +344,11 @@ public class CompareHands implements Serializable{
 		ArrayList<Integer> sortedHand = sortHand(player);
 		int doubleCounter = 0;
 		int tripleCounter = 0;
-		for (int i = 0; i < player.size() - 1; i++) {
-			// branch 1
+		for (int i = 0; i < player.size() - 1; i++) { // cc 1
 			TestBench.BranchReached("isFullHouse1");
-			if (sortedHand.get(i) == sortedHand.get(i + 1)) {
-				// branch 2
+			if (sortedHand.get(i) == sortedHand.get(i + 1)) { // cc 2
 				TestBench.BranchReached("isFullHouse2");
-				if (tripleCounter == 1) {
-					// branch 3
+				if (tripleCounter == 1) { // cc 3
 					TestBench.BranchReached("isFullHouse4");
 					sortedHand.remove(i + 1);
 					sortedHand.remove(i);
@@ -359,8 +356,7 @@ public class CompareHands implements Serializable{
 					break;
 				} else {
 					TestBench.BranchReached("isFullHouse5");
-					if (i == 1) {
-						// branch 4
+					if (i == 1) { // cc 4
 						TestBench.BranchReached("isFullHouse6");
 						tripleCounter = 0;
 					} else {
@@ -373,16 +369,13 @@ public class CompareHands implements Serializable{
 				tripleCounter = 0;
 			}
 		}
-		if (tripleCounter == 2) {
-			// branch 5
+		if (tripleCounter == 2) { // cc 5
 			TestBench.BranchReached("isFullHouse9");
 			sortedHand.trimToSize();
 			int size = sortedHand.size();
-			for (int i = 0; i < (size - 1); i++) {
-				// branch 6
+			for (int i = 0; i < (size - 1); i++) { // cc 6
 				TestBench.BranchReached("isFullHouse10");
-				if (sortedHand.get(i) == sortedHand.get(i + 1)) {
-					// branch 7
+				if (sortedHand.get(i) == sortedHand.get(i + 1)) { // cc 7
 					TestBench.BranchReached("isFullHouse11");
 					doubleCounter++;
 				}
@@ -392,15 +385,14 @@ public class CompareHands implements Serializable{
 			return false;
 		}
 
-		if (doubleCounter >= 1) {
-			// branch 8
+		if (doubleCounter >= 1) { // cc 8
 			TestBench.BranchReached("isFullHouse13");
 			return true;
 		} else {
 			TestBench.BranchReached("isFullHouse14");
 			return false;
 		}
-	}
+	} // Decisions = 8, Exit = 3. Complexity = Decisions - Exits + 2 => 8 - 3 + 2 = 7.
 
     /**
        Returns boolean for if the hand is a flush.
@@ -881,26 +873,22 @@ public class CompareHands implements Serializable{
         int pair1 = 0;
         int pair2 = 0;
 
-        for (int i = sortedHand1.size() - 1; i >= 0; i--) { 
-            // branch 1
+        for (int i = sortedHand1.size() - 1; i >= 0; i--) { // cc 1
             TestBench.BranchReached("pairTie1");
-            if ((Collections.frequency(sortedHand1, sortedHand1.get(i)) == 2) && (pair1 == 0)) { 
-                // branch 2
+            if ((Collections.frequency(sortedHand1, sortedHand1.get(i)) == 2) && (pair1 == 0)) { // cc 2, 3
                 TestBench.BranchReached("pairTie2");
                 pair1 = sortedHand1.get(i);
             }
-            if ((Collections.frequency(sortedHand2, sortedHand2.get(i)) == 2) && (pair2 == 0)) { 
-                // branch 3
+            if ((Collections.frequency(sortedHand2, sortedHand2.get(i)) == 2) && (pair2 == 0)) { // cc 4, 5
                 TestBench.BranchReached("pairTie3");
                 pair2 = sortedHand2.get(i);
             }
         }
 
-        if (pair1 > pair2) {
-            // branch 4
+        if (pair1 > pair2) { // cc 6
             TestBench.BranchReached("pairTie4");
             return 1;
-        } else if (pair2 > pair1) {
+        } else if (pair2 > pair1) { // cc 7
             // branch 5
             TestBench.BranchReached("pairTie5");
             return 0;
@@ -915,15 +903,15 @@ public class CompareHands implements Serializable{
         int hand2_index = sortedHand2.size() - 1;
         int cardsExamined = 0;
 
-        while ((hand1_index >= 0) && (hand2_index >= 0) && (cardsExamined < 3)) { 
+        while ((hand1_index >= 0) && (hand2_index >= 0) && (cardsExamined < 3)) { // cc 8, 9, 10
             // branch 6
             TestBench.BranchReached("pairTie6");
-            if (sortedHand1.get(hand1_index) > sortedHand2.get(hand2_index)) { 
+            if (sortedHand1.get(hand1_index) > sortedHand2.get(hand2_index)) {  // cc 11
                 // branch 7
                 TestBench.BranchReached("pairTie7");
                 return 1;
             }
-            else if (sortedHand2.get(hand2_index) > sortedHand1.get(hand1_index)) { 
+            else if (sortedHand2.get(hand2_index) > sortedHand1.get(hand1_index)) { // cc 12
                 // branch 8
                 TestBench.BranchReached("pairTie8");
                 return 0;
@@ -935,7 +923,7 @@ public class CompareHands implements Serializable{
             }
         }
         return 2;
-    }
+    } // Decisions = 12, Exit = 4. Complexity = Decisions - Exits + 2 => 12 - 4 + 2 = 10.
 
     /**
      * Determines the winner when there is no clear hand using the high card
