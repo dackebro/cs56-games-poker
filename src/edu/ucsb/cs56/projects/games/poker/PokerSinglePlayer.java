@@ -4,8 +4,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.HashSet;
 
-final class PokerSinglePlayer extends PokerGameGui {
+class PokerSinglePlayer extends PokerGameGui {
 
     /**
      * Timer for calling turnDecider()
@@ -152,68 +153,85 @@ final class PokerSinglePlayer extends PokerGameGui {
             controlButtons();
         }
     }
+	
+	/**
+	* Method overridden to allow for a new single player game to start.
+	*/
+	public void showWinnerAlert() {
+		if(!gameOver){							// Branch 1
+TestBench.BranchReached("showWinnerAlert0");
+			String message = "";
+			oSubPane2.remove(backCardLabel1);
+			oSubPane2.remove(backCardLabel2);
+			for(int i=0;i<2;i++){				// Branch 2
+TestBench.BranchReached("showWinnerAlert1");
+				oSubPane2.add(new JLabel(getCardImage((opponent.getHand()).get(i))));
+			}
+			updateFrame();
 
+			message = winningHandMessage();
 
-    /**
-     * Method overridden to allow for a new single player game to start.
-     */    
-    public void showWinnerAlert() {
-    	if(!gameOver){
-    	    String message = "";
-    	    oSubPane2.remove(backCardLabel1);
-    	    oSubPane2.remove(backCardLabel2);
-    	    for(int i=0;i<2;i++){
-    		oSubPane2.add(new JLabel(getCardImage((opponent.getHand()).get(i))));
-    	    }
-    	    updateFrame();
+			if (winnerType == Winner.PLAYER) {	// Branch 3
+TestBench.BranchReached("showWinnerAlert2");
+				System.out.println("player");
+				message = message + ("\n\nYou win!\n\nNext round?");
+			} else if (winnerType == Winner.OPPONENT) {	// Branch 4
+TestBench.BranchReached("showWinnerAlert3");
+				System.out.println("opponent");
+				message = message + ("\n\nOpponent wins.\n\nNext round?");
+			} else if (winnerType == Winner.TIE){		// Branch 5
+TestBench.BranchReached("showWinnerAlert4");
+				System.out.println("tie");
+				message = message + ("\n\nTie \n\nNext round?");
+			} else {
+TestBench.BranchReached("showWinnerAlert5");
+			}
 
-	    message = winningHandMessage();
+			int option = showWinnerConfirmDialog(message);
 
-    	    if (winnerType == Winner.PLAYER) {
-                System.out.println("player");
-                message = message + ("\n\nYou win!\n\nNext round?");
-    	    } else if (winnerType == Winner.OPPONENT) {
-    		System.out.println("opponent");
-    		message = message + ("\n\nOpponent wins.\n\nNext round?");
-    	    } else if (winnerType == Winner.TIE){
-                System.out.println("tie");
-                message = message + ("\n\nTie \n\nNext round?");
-    	    }
-    	    
-    	    int option = JOptionPane.showConfirmDialog(null, message, "Winner",
-    						       JOptionPane.YES_NO_OPTION);
-    	    
-	    if (option == JOptionPane.YES_OPTION) {
-    		// Restart
-		mainFrame.dispose();
-		PokerSinglePlayer singlePlayerReplay;
+			if (option == JOptionPane.YES_OPTION) {		//Branch 6
+TestBench.BranchReached("showWinnerAlert6");
+				// Restart
+				mainFrame.dispose();
+				PokerSinglePlayer singlePlayerReplay;
 
-		// Check if players have enough chips.	
-		// Create new game.
-		
-		if(player.getChips() < 5 || opponent.getChips() < 5){
-		    JOptionPane.showMessageDialog(null, "Resetting chips...");
-		    singlePlayerReplay = new PokerSinglePlayer();
-		    singlePlayerReplay.go();
+				// Check if players have enough chips.
+				// Create new game.
+				if(player.getChips() < 5 || opponent.getChips() < 5){	// Branch 7 & 8
+TestBench.BranchReached("showWinnerAlert7");
+					JOptionPane.showMessageDialog(null, "Resetting chips...");
+					singlePlayerReplay = new PokerSinglePlayer();
+					singlePlayerReplay.go();
+				} else {
+TestBench.BranchReached("showWinnerAlert8");
+					singlePlayerReplay = new PokerSinglePlayer(player.getChips(),opponent.getChips());
+					singlePlayerReplay.go();
+				}
+			} else if (option == JOptionPane.NO_OPTION) {				// Branch 9
+TestBench.BranchReached("showWinnerAlert9");
+				if(player.getChips() < 5 || opponent.getChips() < 5) {	// Branch 10 & 11
+TestBench.BranchReached("showWinnerAlert10");
+					gameOver("GAME OVER! No chips left!");
+				} else {
+TestBench.BranchReached("showWinnerAlert11");
+				}
+				gameOver("GAME OVER! Thanks for playing.\n\n");
+			} else {
+TestBench.BranchReached("showWinnerAlert12");
+				// Quit
+				System.exit(1);
+			}
+		} else {
+TestBench.BranchReached("showWinnerAlert13");
 		}
-		else {
-		    singlePlayerReplay = new PokerSinglePlayer(player.getChips(),opponent.getChips());
-		    singlePlayerReplay.go();
-		}
-	       
-	    } else if (option == JOptionPane.NO_OPTION) {
-		if(player.getChips() < 5 || opponent.getChips() < 5) {
-		    gameOver("GAME OVER! No chips left!");
-		}
-		gameOver("GAME OVER! Thanks for playing.\n\n");
-	    } 
-	    
-	    else {
-    		// Quit
-    		System.exit(1);
-    	    }
-    	}
-    }
+
+		// CC calculation: (11 - 1) + 2 = 12
+	}
+
+	public int showWinnerConfirmDialog(String message) {
+		return JOptionPane.showConfirmDialog(null, message, "Winner",
+				JOptionPane.YES_NO_OPTION);
+	}
 
     /**
      * Restarts the timer controlling turnDecider()
