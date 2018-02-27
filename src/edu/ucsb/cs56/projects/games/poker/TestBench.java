@@ -61,6 +61,10 @@ public class TestBench {
 		for (int i = 0; i <= 6; i++) {
 			coverage.put("isFlush" + i, false);
 		}
+		
+		for(int i = 1; i <= 9; i++) {
+			coverage.put("calculateValue" + i, false);
+		}
 	}
 	
 	/**
