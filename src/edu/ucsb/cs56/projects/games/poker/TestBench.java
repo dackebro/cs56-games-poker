@@ -6,7 +6,6 @@ import java.util.Iterator;
 /**
  * This class holds all data structures and functions
  * relating to our DIY branch coverage tracker
- * @author danhemgren
  *
  */
 
@@ -21,47 +20,26 @@ public class TestBench {
 	 */
 	public static void SetupCoverageTracking() {
 		coverage = new HashMap<String, Boolean>();
-		coverage.put("compareHands1", false);
-		coverage.put("compareHands2", false);
-		coverage.put("compareHands3", false);
-		coverage.put("compareHands4", false);
-		coverage.put("compareHands5", false);
-		coverage.put("compareHands6", false);
-		coverage.put("compareHands7", false);
-		coverage.put("compareHands8", false);
-		coverage.put("compareHands9", false);
-		coverage.put("compareHands10", false);
-		coverage.put("compareHands11", false);
-                String branch = "pairTie";
-                for (int i = 1; i < 9; i++) {
-                    coverage.put(branch+i, false);
-                }
-		for(int i = 1; i <= 12; i++) {
+		
+		for(int i = 1; i <= 11; i++) {
+			coverage.put("compareHands" + i, false);
+		}       	
+        
+		for (int i = 1; i < 9; i++) {
+        		coverage.put("pairTie" + i, false);
+        }
+		
+        for(int i = 1; i <= 12; i++) {
 			coverage.put("compareHands" + i, false);
 		}
-    
-		coverage.put("getMostCommonSuit1", false);
-		coverage.put("getMostCommonSuit2", false);
-		coverage.put("getMostCommonSuit3", false);
-		coverage.put("getMostCommonSuit4", false);
-		coverage.put("getMostCommonSuit5", false);
-		coverage.put("getMostCommonSuit6", false);
-		coverage.put("getMostCommonSuit7", false);
-		coverage.put("getMostCommonSuit8", false);
-		coverage.put("getMostCommonSuit9", false);
-		coverage.put("getMostCommonSuit10", false);
-		coverage.put("getMostCommonSuit11", false);
-    
-		coverage.put("straightTie1", false);
-		coverage.put("straightTie2", false);
-		coverage.put("straightTie3", false);
-		coverage.put("straightTie4", false);
-		coverage.put("straightTie5", false);
-		coverage.put("straightTie6", false);
-		coverage.put("straightTie7", false);
-		coverage.put("straightTie8", false);
-		coverage.put("straightTie9", false);
-
+		
+        for(int i = 1; i <= 11; i++) {
+			coverage.put("getMostCommonSuit" + i, false);
+		}
+    	
+		for(int i = 1; i <= 9; i++) {
+			coverage.put("straightTie" + i, false);
+		}
 
 		for (int i = 0; i <= 13; i++) {
 			coverage.put("showWinnerAlert" + i, false);
@@ -70,9 +48,10 @@ public class TestBench {
 		for (int i = 0; i <= 6; i++) {
 			coverage.put("isFlush" + i, false);
 		}                
-                for (int i = 0; i < 13; i++) {
+        
+		for (int i = 0; i < 13; i++) {
 			coverage.put("twoPairTie" + i, false);
-		}
+		}		
 		
 		for (int i = 1; i <= 14; i++) {
 			coverage.put("isFullHouse" + i, false);
