@@ -139,25 +139,36 @@ public class CompareHands implements Serializable{
      */
 
     public int calculateValue(ArrayList<Card> player) {
-        if(isStraightFlush(player))
+        if(isStraightFlush(player)) {
+        		TestBench.BranchReached("calculateValue1");
             return 8;
-        else if(isFourOfAKind(player))
+        }else if(isFourOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue2");	
             return 7;
-        else if(isFullHouse(player))
+        }else if(isFullHouse(player)) {
+        		TestBench.BranchReached("calculateValue3");	
             return 6;
-        else if(isFlush(player))
-            return 5;
-        else if(isStraight(player))
+        }else if(isFlush(player)) {
+        		TestBench.BranchReached("calculateValue4");
+        		return 5;
+        }else if(isStraight(player)) {
+        		TestBench.BranchReached("calculateValue5");
             return 4;
-        else if(isThreeOfAKind(player))
+        }else if(isThreeOfAKind(player)) {
+        		TestBench.BranchReached("calculateValue6");
             return 3;
-        else if(isTwoPair(player))
+        }else if(isTwoPair(player)) {
+        		TestBench.BranchReached("calculateValue7");
             return 2;
-        else if(isOnePair(player))
+        }else if(isOnePair(player)) {
+        		TestBench.BranchReached("calculateValue8");
             return 1;
-        else
+        } else {
+        		TestBench.BranchReached("calculateValue9");
             return 0;
+        }
     }
+
 
    /**
     * Method that explicitly names the player's hand.
