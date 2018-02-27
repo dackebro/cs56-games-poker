@@ -519,4 +519,54 @@ import org.junit.Test;
         
         assertEquals(2, comparingHands.straightTie());
     }
+    
+    /*
+     * Tests that calculateValueToString() returns "Four of a Kind" 
+     * given a correct hand with four-of-a-kind.
+     */
+    @Test
+    public void testCalculateValueToStringFourOfAKind() {
+    		// ---- Dummy players & table to expose method
+		table = new TableCards(twoSpade,twoHeart,eightHeart,nineDiamond,jackHeart);
+		hand1 = new Hand(twoDiamond, eightClub);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenHeart, fiveHeart);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+    		// ----
+		
+    		ArrayList<Card> cards = new ArrayList<Card>();
+    		cards.add(kingHeart);
+    		cards.add(kingDiamond);
+    		cards.add(kingClub);
+    		cards.add(kingSpade);
+    		cards.add(fourClub);
+    		
+    		assertEquals("Four of a Kind", comparingHands.calculateValueToString(cards));
+    }
+    
+    /*
+     * Tests that calculateValueToString() returns "Mix" 
+     * given a hand with mixed cards. 
+     */
+    @Test
+    public void testCalculateValueToStringMix() {
+    		// ---- Dummy players & table to expose method
+		table = new TableCards(twoSpade,twoHeart,eightHeart,nineDiamond,jackHeart);
+		hand1 = new Hand(twoDiamond, eightClub);
+		player1 = new User(hand1);
+		hand2 = new Hand(tenHeart, fiveHeart);
+		player2 = new User(hand2);
+		comparingHands = new CompareHands(player1, player2, table);
+    		// ----
+		
+    		ArrayList<Card> cards = new ArrayList<Card>();
+    		cards.add(kingHeart);
+    		cards.add(queenDiamond);
+    		cards.add(fiveClub);
+    		cards.add(threeSpade);
+    		cards.add(fourClub);
+    		
+    		assertEquals("Mix", comparingHands.calculateValueToString(cards));
+    }
 }
